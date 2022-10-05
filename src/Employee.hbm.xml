@@ -1,0 +1,37 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package = "com.ideas2it.model">
+	<class name="Employee" table="Employee">
+		<id name="id">
+			<generator class="increment"></generator>
+		</id>
+
+		<property name="firstName"></property>
+		<property name="lastName"></property>
+		<property name="designation"></property>
+		<property name="department"></property>
+		<property name="phoneNumber"></property>
+		<property name="emailId"></property>
+		<property name="dateOfBirth"></property>
+		<property name="previousExperience"></property>
+		<property name="dateOfJoining"></property>
+
+        <joined-subclass name="Trainer" table="Trainer">
+           <key column="Id"/>
+           <property name = "salary" column = "salary" type = "long"/>
+        </joined-subclass>
+ 
+        <joined-subclass name="Trainee" table="Trainee">
+            <key column="Id"/>
+            <property name = "passedOutYear" column = "passedOutYear" type = "int"/>
+            <set name = "Skills" cascade="save-update, delete" lazy="true" fetch="join">
+                <key column = "traineeId"/>  
+                <one-to-many class="Skills"/>
+            </set>
+        </joined-subclass>
+      
+	</class>
+</hibernate-mapping>  

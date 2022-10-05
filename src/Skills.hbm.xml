@@ -1,0 +1,25 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.ideas2it.model.Skills" table="Skills">
+
+		<meta attribute="class-description">
+			This class contains the skills detail.
+		</meta>
+
+		<id name="skillId" type="int" column="Id">
+			<generator class="native" />
+		</id>
+		<property name="skillName" column="skillName" type="string" />
+		<property name="skillVersion" column="skillVersion"
+			type="string" />
+		<property name="lastUsedYear" column="lastUsedYear"
+			type="int" />
+		<property name="skillExperience" column="skillExperience"
+			type="float" />
+
+	</class>
+</hibernate-mapping>
