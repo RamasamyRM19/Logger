@@ -2,6 +2,7 @@ package com.ideas2it.service;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher; 
@@ -413,6 +414,15 @@ public class EmployeeService {
         return matcher.matches();  
     }  
 
+    /**
+     * 
+     */
+    public Boolean isValidDate(String dateOfBirth) {
+        String format = "([0][1-9]|[1][0-2])/([0][1-9]|[1][0-2]{1})/([1][0-9]{3}|[2][0-9]{3})";
+        Boolean status = Pattern.matches(format, dateOfBirth);
+        return status;
+    }
+    
     /**
      * <p>
      * Function to check if the employee's age is valid or not.

@@ -32,7 +32,6 @@ public class EmployeeController {
 
     private Scanner scanner = new Scanner(System.in);
 
-    /* Get the class name to be printed on */  
     private static Logger log = LogManager.getLogger(EmployeeController.class.getName());
 
     /**
@@ -45,7 +44,6 @@ public class EmployeeController {
      */
     public void initiate() {
 
-        //BasicConfigurator.configure();
         Boolean choice = true;
         Integer option = 0; 
         while (choice) {
@@ -204,11 +202,16 @@ public class EmployeeController {
             do {
                 log.info("Date of birth in DD/MM/YYYY : ");
                 dateOfBirth = scanner.next();
-                DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");  
-                LocalDate birthDate = LocalDate.parse(dateOfBirth, dateFormat);
-                isValidAge = employeeService.isValidEmployee(birthDate);
-                if (!isValidAge) {
-                    log.error("Not Eligibile to be an Employee!!!");
+                isValidAge = employeeService.isValidDate(dateOfBirth);
+                if (isValidAge) {
+                    DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");  
+                    LocalDate birthDate = LocalDate.parse(dateOfBirth, dateFormat);
+                    isValidAge = employeeService.isValidEmployee(birthDate);
+                    if (!isValidAge) {
+                        log.error("Not Eligibile to be an Employee!!!");
+                    }
+                } else {
+                    log.error("Enter Correct Format!!!");
                 }
             } while (!isValidAge);
 
@@ -220,11 +223,16 @@ public class EmployeeController {
             do {
                 log.info("Date of Joining in DD/MM/YYYY : ");
                 dateOfJoining = scanner.next();
-                DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy"); 
-                LocalDate joiningDate = LocalDate.parse(dateOfJoining, dateFormat);
-                isValidJoining = employeeService.isFutureDate(joiningDate);
-                if (!isValidJoining) {
-                    log.warn("Date of joining must not be a future Date");
+                isValidJoining = employeeService.isValidDate(dateOfBirth);
+                if (isValidJoining) {
+                    DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy"); 
+                    LocalDate joiningDate = LocalDate.parse(dateOfJoining, dateFormat);
+                    isValidJoining = employeeService.isFutureDate(joiningDate);
+                    if (!isValidJoining) {
+                        log.warn("Date of joining must not be a future Date");
+                    }
+                } else {
+                    log.error("Enter Correct Format");
                 }
             } while (!isValidJoining);
 
