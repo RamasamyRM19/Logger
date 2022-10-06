@@ -31,10 +31,10 @@ public class EmployeeController {
     private EmployeeService employeeService = new EmployeeService();
 
     private Scanner scanner = new Scanner(System.in);
-    
+
     /* Get the class name to be printed on */  
     private static Logger log = LogManager.getLogger(EmployeeController.class.getName());
-    
+
     /**
      * <p>
      * Initial level of the application
@@ -45,7 +45,7 @@ public class EmployeeController {
      */
     public void initiate() {
 
-      //BasicConfigurator.configure();
+        //BasicConfigurator.configure();
         Boolean choice = true;
         Integer option = 0; 
         while (choice) {
@@ -142,7 +142,7 @@ public class EmployeeController {
      * @return void
      */
     public void createNewEmployee(int option) {
-        
+
         try {
             log.info("\nCreate New Employee");
             log.info("--------------------");
