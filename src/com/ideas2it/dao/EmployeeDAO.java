@@ -4,16 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.HibernateException;
-import org.hibernate.Query;
+import org.hibernate.query.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
+import com.ideas2it.model.Employee;
 import com.ideas2it.model.Trainee;
 import com.ideas2it.model.Trainer;
 
 /**
- * EmployeeDataAccessObject contains the methods to perform the datebase
+ * EmployeeDataAccessObject contains the methods to perform the database
  * operations for Employee Details
  *
  * @version 1.0 12 Aug 2022
@@ -24,6 +25,7 @@ public class EmployeeDAO {
 
     private SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
     private Session session = null;
+
     /**
      * <p>
      * Insert Trainer Details
@@ -57,8 +59,8 @@ public class EmployeeDAO {
         List<Trainer> trainers = new ArrayList<Trainer>();
         try {
             session = sessionFactory.openSession();
-            String query = "FROM Trainer";
-            trainers = session.createQuery(query).list();
+            Query query = session.createQuery("FROM Trainer");
+            trainers = query.list();
         } finally {
             session.close(); 
         }
@@ -174,7 +176,7 @@ public class EmployeeDAO {
      * @param Integer id
      * @return List<Trainee> trainees
      */
-    public Trainee retrieveTraineeById(Integer id) throws HibernateException {
+    public Trainee retrieveTraineeById(Integer id) {
         Trainee trainee = new Trainee();
         try {
             session = sessionFactory.openSession();
@@ -193,7 +195,7 @@ public class EmployeeDAO {
      * @param Trainee trainee
      * @return void
      */
-    public void updateTraineeById(Trainee trainee) throws HibernateException {
+    public void updateTraineeById(Trainee trainee) {
         try { 
             session = sessionFactory.openSession();
             Transaction transaction = session.beginTransaction();
@@ -214,7 +216,7 @@ public class EmployeeDAO {
      * @param Integer id
      * @return void
      */
-    public void deleteTraineeById(Integer id) throws HibernateException {
+    public void deleteTraineeById(Integer id) {
         try {
             session = sessionFactory.openSession();
             Transaction transaction = session.beginTransaction();
@@ -234,18 +236,18 @@ public class EmployeeDAO {
      * @param String detail
      * @return List<Trainer> trainers
      */
-    public List<Trainer> searchTrainerByFirstName(String firstName) throws HibernateException {
-        List<Trainer> trainers = new ArrayList<Trainer>();
+    public List<Employee> searchEmployeeByFirstName(String firstName) {
+        List<Employee> employee = new ArrayList<Employee>();
         try {
             session = sessionFactory.openSession();
-            String hql = "from Trainer where firstName like :firstName";
+            String hql = "from Employee where firstName like :firstName";
             Query query = session.createQuery(hql);
             query.setParameter("firstName", "%" + firstName + "%");
-            trainers = query.list();
+            employee = query.list();
         } finally {
             session.close();
         }
-        return trainers;
+        return employee;
     }
 
     /**
@@ -256,61 +258,17 @@ public class EmployeeDAO {
      * @param String detail
      * @return List<Trainer> trainers
      */
-    public List<Trainer> searchTrainerByLastName(String lastName) throws HibernateException {
-        List<Trainer> trainers = new ArrayList<Trainer>();
+    public List<Employee> searchEmployeeByLastName(String lastName) {
+        List<Employee> employee = new ArrayList<Employee>();
         try {
             session = sessionFactory.openSession();
-            String hql = "from Trainer where lastName like :lastName";
+            String hql = "from Employee where lastName like :lastName";
             Query query = session.createQuery(hql);
             query.setParameter("lastName", "%" + lastName + "%");
-            trainers = query.list();
+            employee = query.list();
         } finally {
             session.close();
         }
-        return trainers;
-    }
-
-    /**
-     * <p>
-     * Search the particular Trainee detail from database by FirstName
-     * </p>
-     *
-     * @param String detail
-     * @return List<Trainee> trainees
-     */
-    public List<Trainee> searchTraineeByFirstName(String firstName) throws HibernateException {
-        List<Trainee> trainees = new ArrayList<Trainee>();
-        try {
-            session = sessionFactory.openSession();
-            String hql = "from Trainee where firstName like :firstName";
-            Query query = session.createQuery(hql);
-            query.setParameter("firstName", "%" + firstName + "%");
-            trainees = (List<Trainee>) query.list();
-        } finally {
-            session.close();
-        }
-        return trainees;
-    }
-
-    /**
-     * <p>
-     * Search the particular Trainee detail from database by LastName
-     * </p>
-     *
-     * @param String detail
-     * @return List<Trainee> trainees
-     */
-    public List<Trainee> searchTraineeByLastName(String lastName) throws HibernateException {
-        List<Trainee> trainees = new ArrayList<Trainee>();
-        try {
-            session = sessionFactory.openSession();
-            String hql = "from Trainee where lastName like :lastName";
-            Query query = session.createQuery(hql);
-            query.setParameter("lastName", "%" + lastName + "%");
-            trainees = (List<Trainee>) query.list();
-        } finally {
-            session.close();
-        }
-        return trainees;
+        return employee;
     }
 }

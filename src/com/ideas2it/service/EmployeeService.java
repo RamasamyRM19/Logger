@@ -2,7 +2,6 @@ package com.ideas2it.service;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher; 
@@ -11,6 +10,7 @@ import java.util.Set;
 import org.hibernate.HibernateException;
 
 import com.ideas2it.dao.EmployeeDAO;
+import com.ideas2it.model.Employee;
 import com.ideas2it.model.Skills;
 import com.ideas2it.model.Trainee;
 import com.ideas2it.model.Trainer;
@@ -306,10 +306,10 @@ public class EmployeeService {
      * @param String option
      * @return List<Trainer> trainers
      */
-    public List<Trainer> searchTrainerByFirstName(String firstName) throws HibernateException {
-        List<Trainer> trainers = new ArrayList<Trainer>();
-        trainers = employeeDAO.searchTrainerByFirstName(firstName);
-        return trainers;
+    public List<Employee> searchEmployeeByFirstName(String firstName) {
+        List<Employee> employee = new ArrayList<Employee>();
+        employee = employeeDAO.searchEmployeeByFirstName(firstName);
+        return employee;
     }
 
     /**
@@ -321,41 +321,11 @@ public class EmployeeService {
      * @param String option
      * @return List<Trainer> trainers
      */
-    public List<Trainer> searchTrainerByLastName(String lastName) throws HibernateException {
-        List<Trainer> trainers = new ArrayList<Trainer>();
-        trainers = employeeDAO.searchTrainerByLastName(lastName);
-        return trainers;
+    public List<Employee> searchEmployeeByLastName(String lastName) {
+        List<Employee> employee = new ArrayList<Employee>();
+        employee = employeeDAO.searchEmployeeByLastName(lastName);
+        return employee;
     }
-
-    /**
-     * <p>
-     * Search All Employee details in Trainee
-     * based Firstname.
-     * </p>
-     *
-     * @param String option
-     * @return List<Trainee> trainees
-     */
-    public List<Trainee> searchTraineeByFirstName(String firstName) throws HibernateException {
-        List<Trainee> trainees = new ArrayList<Trainee>();
-        trainees = employeeDAO.searchTraineeByFirstName(firstName);
-        return trainees;
-    }
-
-    /**
-     * <p>
-     * Search All Employee details in Trainee
-     * based on Lastname.
-     * </p>
-     *
-     * @param String option
-     * @return List<Trainee> trainees
-     */
-    public List<Trainee> searchTraineeByLastName(String lastName) throws HibernateException {
-        List<Trainee> trainees = new ArrayList<Trainee>();
-        trainees = employeeDAO.searchTraineeByLastName(lastName); 
-        return trainees;
-    }  
 
     /**
      * <p>

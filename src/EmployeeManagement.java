@@ -1,3 +1,6 @@
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.ideas2it.controller.EmployeeController;
 
 /**
@@ -10,7 +13,10 @@ import com.ideas2it.controller.EmployeeController;
  */
 public class EmployeeManagement {
     
+    private static Logger log = LogManager.getLogger(EmployeeManagement.class.getName());
+    
     public static void main(String[] args) {      
+        log.info("Logger Started Successfully!");
         EmployeeController employeeController = new EmployeeController();
         employeeController.initiate();
     }
